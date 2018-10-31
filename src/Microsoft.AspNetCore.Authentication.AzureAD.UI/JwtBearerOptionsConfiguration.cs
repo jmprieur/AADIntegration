@@ -30,8 +30,12 @@ namespace Microsoft.AspNetCore.Authentication
                 return;
             }
 
-            options.Audience = azureADOptions.ClientId;
-            options.Authority = new Uri(new Uri(azureADOptions.Instance), azureADOptions.TenantId).ToString();
+            string audienceFormat = azureADOptions.Authority.Replace("{ClientId}", "{0}");
+            options.Audience = string.Format(audienceFormat, azureADOptions.ClientId);
+
+            string authorityFormat = azureADOptions.Authority.Replace("{Instance}", "{0}").Replace("{Tenant}", "{1}") ;
+            options.Authority = string.Format(authorityFormat, azureADOptions.Instance, azureADOptions.Tenant);
+
         }
 
         public void Configure(JwtBearerOptions options)

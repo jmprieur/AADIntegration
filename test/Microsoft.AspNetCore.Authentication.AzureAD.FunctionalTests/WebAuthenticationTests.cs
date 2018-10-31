@@ -77,9 +77,8 @@ namespace Microsoft.AspNetCore.Authentication.AzureAD.FunctionalTests
                         .AddAzureAD(o =>
                         {
                             o.Instance = "https://login.microsoftonline.com/";
-                            o.Domain = "test.onmicrosoft.com";
+                            o.Tenant = "test.onmicrosoft.com";
                             o.ClientId = "ClientId";
-                            o.TenantId = "TenantId";
                         });
 
                     services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, o =>

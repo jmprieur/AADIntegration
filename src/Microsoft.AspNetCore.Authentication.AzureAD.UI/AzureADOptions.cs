@@ -30,29 +30,47 @@ namespace Microsoft.AspNetCore.Authentication.AzureAD.UI
         public string JwtBearerSchemeName { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the client Id.
+        /// Gets or sets the client Id (Application Id) of the Azure AD application
         /// </summary>
         public string ClientId { get; set; }
 
         /// <summary>
-        /// Gets or sets the client secret.
+        /// Gets or sets the audience for this Web Application or Web API (This audience needs
+        /// to match the audience of the tokens sent to access this application)
         /// </summary>
+        public string Audience { get; set; } = "api://{ClientId}";
+
+        /// <summary>
+        /// Gets or sets the client secret for the application
+        /// </summary>
+        /// <remarks>The client secret is only used if the Web app or Web API calls a Web
+        /// API</remarks>
         public string ClientSecret { get; set; }
 
         /// <summary>
-        /// Gets or sets the tenant Id.
+        /// Gets or sets the tenant. The tenant can have one of the following values:
+        /// <list type="table">
+        /// <item><term>a tenant ID</term><description>A GUID representing the ID of the Azure Active Directory Tenant</description></item>
+        /// <item><term>a domain</term><description>associated with Azure Active Directory</description></item>
+        /// <item><term>common</term><description>if the <see cref="Authority"/> is Azure AD v2.0, enables to sign-in users from any
+        /// Work and School account or Microsoft Personal Account. If Authority is Azure AD v1.0, enables sign-in from any Work and School accounts</description></item>
+        /// <item><term>organizations</term><description>if the <see cref="Authority"/> is Azure AD v2.0, enables to sign-in users from any
+        /// Work and School account</description></item>
+        /// <item><term>consumers</term><description>if the <see cref="Authority"/> is Azure AD v2.0, enables to sign-in users from any
+        /// Microsoft personal account</description></item>
+        /// </list>
         /// </summary>
-        public string TenantId { get; set; }
+        public string Tenant { get; set; } = "common";
 
         /// <summary>
         /// Gets or sets the Azure Active Directory instance.
         /// </summary>
-        public string Instance { get; set; }
+        public string Instance { get; set; } = "https://login.microsoftonline.com";
 
         /// <summary>
-        /// Gets or sets the domain of the Azure Active Directory tennant.
+        /// Azure AD Authority.
         /// </summary>
-        public string Domain { get; set; }
+        public string Authority { get; set; } = "https://{Instance}/{Tenant}/v2.0";
 
         /// <summary>
         /// Gets or sets the sign in callback path.

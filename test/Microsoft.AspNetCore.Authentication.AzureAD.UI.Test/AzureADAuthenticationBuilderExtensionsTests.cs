@@ -49,8 +49,7 @@ namespace Microsoft.AspNetCore.Authentication
                     o.ClientId = "ClientId";
                     o.ClientSecret = "ClientSecret";
                     o.CallbackPath = "/signin-oidc";
-                    o.Domain = "domain.onmicrosoft.com";
-                    o.TenantId = "Common";
+                    o.Tenant = "common";
                 });
             var provider = services.BuildServiceProvider();
 
@@ -64,7 +63,7 @@ namespace Microsoft.AspNetCore.Authentication
             Assert.Equal("ClientId", azureADOptions.ClientId);
             Assert.Equal("ClientSecret", azureADOptions.ClientSecret);
             Assert.Equal("/signin-oidc", azureADOptions.CallbackPath);
-            Assert.Equal("domain.onmicrosoft.com", azureADOptions.Domain);
+            Assert.Equal("common", azureADOptions.Tenant);
 
             var openIdOptionsMonitor = provider.GetService<IOptionsMonitor<OpenIdConnectOptions>>();
             Assert.NotNull(openIdOptionsMonitor);
@@ -176,8 +175,7 @@ namespace Microsoft.AspNetCore.Authentication
                     o.Instance = "https://login.microsoftonline.com/";
                     o.ClientId = "ClientId";
                     o.CallbackPath = "/signin-oidc";
-                    o.Domain = "domain.onmicrosoft.com";
-                    o.TenantId = "TenantId";
+                    o.Tenant = "domain.onmicrosoft.com";
                 });
             var provider = services.BuildServiceProvider();
 
@@ -188,7 +186,7 @@ namespace Microsoft.AspNetCore.Authentication
             Assert.Equal(AzureADDefaults.JwtBearerAuthenticationScheme, options.JwtBearerSchemeName);
             Assert.Equal("https://login.microsoftonline.com/", options.Instance);
             Assert.Equal("ClientId", options.ClientId);
-            Assert.Equal("domain.onmicrosoft.com", options.Domain);
+            Assert.Equal("domain.onmicrosoft.com", options.Tenant);
 
             var bearerOptionsMonitor = provider.GetService<IOptionsMonitor<JwtBearerOptions>>();
             Assert.NotNull(bearerOptionsMonitor);

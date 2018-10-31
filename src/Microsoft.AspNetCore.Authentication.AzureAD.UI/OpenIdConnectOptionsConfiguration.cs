@@ -29,7 +29,8 @@ namespace Microsoft.AspNetCore.Authentication.AzureAD.UI
 
             options.ClientId = azureADOptions.ClientId;
             options.ClientSecret = azureADOptions.ClientSecret;
-            options.Authority = new Uri(new Uri(azureADOptions.Instance), azureADOptions.TenantId).ToString();
+            string authorityFormat = azureADOptions.Authority.Replace("{Instance}", "{0}").Replace("{Tenant}", "{1}");
+            options.Authority = string.Format(authorityFormat, azureADOptions.Instance, azureADOptions.Tenant);
             options.CallbackPath = azureADOptions.CallbackPath ?? options.CallbackPath;
             options.SignedOutCallbackPath = azureADOptions.SignedOutCallbackPath ?? options.SignedOutCallbackPath;
             options.SignInScheme = azureADOptions.CookieSchemeName;
